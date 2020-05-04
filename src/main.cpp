@@ -4,9 +4,6 @@
 
 int main()
 {
-    Program prg;
 
-
-    getch();
     return 0;
 }

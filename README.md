@@ -7,7 +7,8 @@ I've been browsing a wee too much reddit in this quarantine, so I've decided to 
 Now we've got CLIDDIT, Cliddit is a CLI Reddit client with no authentication
 
 # How?
-This is an excercise to use as few libraries as possible, for now i'll only use sfml and ncurses, sfml is for some neat networking capabilities.
+This is an excercise to use as few libraries as possible, for now i'll only use sfml and ncurses, sfml is for some neat networking capabilities. It is a very real
+possibility that i'll add libcaca to "render" pictures
 Reddit has one amazing feature where you can append ".json" to any url and the website will be returned to you in JSON
 
 
