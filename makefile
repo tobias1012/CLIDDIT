@@ -18,12 +18,20 @@ executable ?= cliddit.out
 build_dir = ./build
 src_dir = ./src
 include_dir = ./include
+parser_dir = ./parser
 
 .PHONY: debug clean
 
-all: dirs $(build_dir)/$(executable) 
+all: dirs parse.yy.hpp lex.yy.cpp $(build_dir)/$(executable) 
 
-$(build_dir)/$(executable): $(src_dir)/*.cpp
+#complie flex and bison
+lex.yy.cpp: $(parser_dir)/*.l 
+	flex -o $(src_dir)/lex.yy.c $^ 
+
+parse.yy.hpp: $(parser_dir)/*.y
+	bison -o $(include_dir)/$@ $^
+
+$(build_dir)/$(executable): $(src_dir)/*.c*
 	@echo "Building src..."
 	$(CXX) $(CXX_FLAGS) -I$(include_dir) $^ -o $@ $(LIBS)
 
