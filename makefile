@@ -26,12 +26,12 @@ all: dirs parse.yy.hpp lex.yy.cpp $(build_dir)/$(executable)
 
 #complie flex and bison
 lex.yy.cpp: $(parser_dir)/*.l 
-	flex -o $(src_dir)/lex.yy.c $^ 
+	flex -o $(src_dir)/$@ $^ 
 
 parse.yy.hpp: $(parser_dir)/*.y
 	bison -o $(include_dir)/$@ $^
 
-$(build_dir)/$(executable): $(src_dir)/*.c*
+$(build_dir)/$(executable): $(src_dir)/*.cpp
 	@echo "Building src..."
 	$(CXX) $(CXX_FLAGS) -I$(include_dir) $^ -o $@ $(LIBS)
 
@@ -43,3 +43,5 @@ debug: clean all
 
 clean:
 	-rm -rf $(build_dir)
+	-rm $(include_dir)/parse.yy.hpp
+	-rm $(src_dir)/lex.yy.cpp 

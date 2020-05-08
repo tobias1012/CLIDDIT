@@ -33,3 +33,6 @@
 
 #IDE Specific files
 .vscode/
+
+#flex/bison
+*yy*

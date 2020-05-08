@@ -6,7 +6,7 @@
 %token TNULL
 %token TTRUE TFALSE
 %token TNUMBER TIDENTIFIER
-%token TLCURL TRCURL TLBRACKET TRBRACKET TCOLON TCOMMA
+%token TLCURL TRCURL TLBRACKET TRBRACKET TCOLON TCOMMA TQUOTE
 
 %union {
     int token;
@@ -14,6 +14,25 @@
 
 %%
 
-value: TNUMBER ;
+json: object ; 
+
+object: TLCURL members TRCURL ;
+
+members: pair
+        | members TCOMMA pair;
+
+pair: string TCOLON value;
+
+value: TNUMBER | TNULL | string | bool | array | object;
+
+array: TLBRACKET elements TRBRACKET     ;
+
+elements: value
+        | elements TCOMMA value;
+
+string: TQUOTE TIDENTIFIER TQUOTE ;
+
+bool: TTRUE
+    | TFALSE    ;
 
 %%
