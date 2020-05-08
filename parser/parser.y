@@ -23,7 +23,7 @@ members: pair
 
 pair: string TCOLON value;
 
-value: TNUMBER | TNULL | string | bool | array | object;
+value: TNUMBER | string | bool | array | object;
 
 array: TLBRACKET elements TRBRACKET     ;
 
@@ -33,6 +33,7 @@ elements: value
 string: TQUOTE TIDENTIFIER TQUOTE ;
 
 bool: TTRUE
-    | TFALSE    ;
+    | TFALSE
+    | TNULL   ;
 
 %%
