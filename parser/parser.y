@@ -1,16 +1,23 @@
 %{
+    #include "json.hpp"
+
     extern int yylex();
     void yyerror(const char *s) {;}
 %}
+
+%union {
+    JsonBool* Bool;
+    JsonString* String;
+    int token;
+}
 
 %token TNULL
 %token TTRUE TFALSE
 %token TNUMBER TIDENTIFIER
 %token TLCURL TRCURL TLBRACKET TRBRACKET TCOLON TCOMMA TQUOTE
 
-%union {
-    int token;
-}
+%type <Bool> bool
+%type <String> string
 
 %%
 
@@ -30,10 +37,12 @@ array: TLBRACKET elements TRBRACKET     ;
 elements: value
         | elements TCOMMA value;
 
-string: TQUOTE TIDENTIFIER TQUOTE ;
+string: TQUOTE TIDENTIFIER TQUOTE { $$ = new JsonString("Not Implemented!"); } /*  */
+      ;
 
-bool: TTRUE
-    | TFALSE
-    | TNULL   ;
+bool: TTRUE     { $$ = new JsonBool(true);}
+    | TFALSE    { $$ = new JsonBool(false);}
+    | TNULL     { $$ = new JsonBool(NULL);}
+    ;
 
 %%

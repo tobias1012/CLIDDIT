@@ -10,7 +10,7 @@ endif
 
 MKDIR_P = mkdir -p
 
-LIBS = -lsfml-system -lsfml-network -lncurses
+LIBS = -lcurl -lncurses
 
 #binary name
 executable ?= cliddit.out
