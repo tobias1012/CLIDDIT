@@ -16,3 +16,7 @@ Reddit has one amazing feature where you can append ".json" to any url and the w
 Yes of course!
 
 I'll have to add some screenshots though, maybe in a later state of the program.
+
+
+# Contributing
+If you really want to you can contribute to the program, do this by opening an issue. we'll discuss the function and then do a pull request
