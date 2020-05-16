@@ -70,7 +70,7 @@ public:
     JsonBool(int val)
         : val(val) {}
     virtual std::string getValue();
-    bool val;
+    int val;
 };
 
 class JsonString : public JsonValue
