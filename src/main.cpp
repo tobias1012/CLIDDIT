@@ -21,7 +21,8 @@ int main()
     
     auto dT = std::chrono::duration_cast<std::chrono::microseconds>(now - before).count();
 
-    std::cout << dT << std::endl;
+    std::cout <<"Length of string:" << t.length() << std::endl << 
+    "Time to Parse: " << dT << std::endl;
 
     RedditHandler handler;
 

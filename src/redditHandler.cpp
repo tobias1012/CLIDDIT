@@ -20,7 +20,7 @@ Posts RedditHandler::getPosts()
 {
     Posts ret;
 
-    std::string data = req.getResponse(subreddit + ".json");
+    std::string data = req.getResponse(subreddit + ".json?limit=100");
 
     JsonObject obj = parser.parse(data);
 
