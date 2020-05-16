@@ -2,12 +2,16 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
+#include <algorithm>
 
-
+class Json;
 class JsonPair;
 class JsonString;
+class JsonValue;
 
-typedef std::vector<JsonPair*> ValueList;
+typedef std::vector<JsonPair*> PairList;
+typedef std::vector<JsonValue*> ValueList;
 
 
 enum Type
@@ -20,7 +24,9 @@ enum Type
 
 class Json
 {
+public:
     virtual std::string getValue() = 0;
+  
 };
 
 class JsonValue : public Json
@@ -36,8 +42,9 @@ class JsonObject : public JsonValue
 {
 public:
     JsonObject();
-    JsonObject(ValueList* list);
-    std::vector<JsonPair*> values;
+    JsonObject(PairList* list);
+    PairList values;
+    JsonValue* operator[](std::string str);
     virtual std::string getValue();
 };
 
@@ -69,8 +76,9 @@ public:
 class JsonString : public JsonValue
 {
 public:
-    JsonString(std::string val)
-        : value(val) {}
+    JsonString(std::string* val)
+        : value(*val) {}
+    JsonString() = default;
     std::string value;
     virtual std::string getValue();
 };
@@ -78,12 +86,12 @@ public:
 class JsonArray : public JsonValue
 {
 public:
+    JsonArray(ValueList* vals);
+    JsonArray() = default;
     JsonValue* operator[](size_t index);
     void push_back(JsonValue* val);
+    ValueList values;
     virtual std::string getValue();
-
-private:
-    std::vector<JsonValue*> values;
 
 };
 

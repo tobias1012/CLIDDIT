@@ -4,6 +4,7 @@
 #include "program.hpp"
 #include "requester.hpp"
 #include "jsonParser.hpp"
+#include "redditHandler.hpp"
 
 int main()
 {
@@ -21,6 +22,12 @@ int main()
     auto dT = std::chrono::duration_cast<std::chrono::microseconds>(now - before).count();
 
     std::cout << dT << std::endl;
+
+    RedditHandler handler;
+
+    std::string name = handler.getPosts()[0].name;
+
+    std::cout << name << std::endl;
 
     return 0;
 }

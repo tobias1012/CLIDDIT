@@ -15,22 +15,22 @@
     JsonNumber* JNum;
     JsonArray*  Jarray;
     JsonValue*  JVal;
-    ValueList*   JValList;
+    PairList*   JPairList;
+    ValueList*  JValList;
     std::string* string;
     int token;
 }
 
-%token <String> TNUMBER TIDENTIFIER TSTRING
+%token <string> TNUMBER TIDENTIFIER TSTRING
 %token <token> TLCURL TRCURL TLBRACKET TRBRACKET TCOLON TCOMMA TQUOTE
 %token <token> TTRUE TFALSE TNULL
 
-//%type <JBool> bool
-//%type <JString> string array
 %type <JObject> json
-%type <JValList> members
+%type <JValList> elements
+%type <JPairList> members 
 %type <JPair> pair
-%type <JVal> elements value object number bool string array
-//%type <JNum> number
+%type <JVal> value object number bool string array
+
 
 
 %%
@@ -42,8 +42,8 @@ object: TLCURL members TRCURL {$$ = new JsonObject($2);}
       | TLCURL TRCURL {$$ = new JsonObject();}
       ;
 
-members: /*Blank*/ { $$ = new ValueList();}
-       | pair { $$ = new ValueList(); $$->push_back($1);}
+members: /*Blank*/ { $$ = new PairList();}
+       | pair { $$ = new PairList(); $$->push_back($1);}
        | members TCOMMA pair {$1->push_back($3);}
        ;
 
@@ -55,16 +55,17 @@ value: number | string | bool | array | object ;
 number: TNUMBER { $$ = new JsonNumber();}
       ;
 
-array: TLBRACKET elements TRBRACKET {$$ = new JsonString("Not Implemented!");} 
-     | TLBRACKET TRBRACKET {$$ = new JsonString("Not Implemented!");}
+array: TLBRACKET elements TRBRACKET {$$ = new JsonArray($2);} 
+     | TLBRACKET TRBRACKET {$$ = new JsonArray();}
      ;
 
-elements: 
-        | value
-        | elements TCOMMA value ;
+elements: /* Blank */  {$$ = new ValueList();}
+        | value     { $$ = new ValueList(); $$->push_back($1);}
+        | elements TCOMMA value {$1->push_back($3);}
+        ;
 
-string: TSTRING { $$ = new JsonString("Not Implemented!");} /*  */
-      | TQUOTE TQUOTE {$$ = new JsonString("");}
+string: TSTRING { $$ = new JsonString($1);}
+      | TQUOTE TQUOTE {$$ = new JsonString();}
       ;
 
 

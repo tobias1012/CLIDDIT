@@ -6,7 +6,7 @@ JsonObject::JsonObject()
     //TODO: Implement
 }
 
-JsonObject::JsonObject(ValueList* list)
+JsonObject::JsonObject(PairList* list)
 {
     values = *list;
 }
@@ -15,6 +15,22 @@ JsonObject::JsonObject(ValueList* list)
 std::string JsonObject::getValue()
 {
     return this->getValue();
+}
+
+JsonValue* JsonObject::operator[](std::string str)
+{
+    //We could massively improve perfomance by using findif instead
+    size_t i = 0;
+    for(i = 0; i < values.size(); i++)
+    {
+        if(str == values[i]->name)
+        {
+            break; //we found our value and now break out of loop
+        }
+    }
+
+    return values[i]->value;
+    
 }
 
 JsonPair::JsonPair(JsonString* str, JsonValue* val)
@@ -43,10 +59,27 @@ std::string JsonBool::getValue()
 
 std::string JsonString::getValue()
 {
+    value.pop_back();
+    value.erase(0, 1);
     return value;
+}
+
+JsonArray::JsonArray(ValueList* vals)
+{
+    values = *vals;
 }
 
 std::string JsonArray::getValue()
 {
-    return "Not implemented"; //TODO: IMPLEMENT
+    return "Can't get the value from an array"; //TODO: IMPLEMENT
+}
+
+void JsonArray::push_back(JsonValue* val)
+{
+    values.push_back(val);
+}
+
+JsonValue* JsonArray::operator[](size_t index)
+{
+    return values[index];
 }

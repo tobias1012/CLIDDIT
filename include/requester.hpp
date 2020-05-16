@@ -18,8 +18,9 @@ public:
     void setHost(std::string host);
     std::string getResponse(std::string subsite);
 
-    static size_t writeCallback(const char* data, size_t size, size_t nmemb, std::string* userp);
+    
 private:
     CURL* curl;
     std::string host;
+    static size_t writeCallback(const char* data, size_t size, size_t nmemb, std::string* userp);
 };
