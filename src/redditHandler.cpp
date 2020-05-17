@@ -32,14 +32,14 @@ Posts RedditHandler::getPosts()
     for(size_t i = 0; i < posts.values.size(); i++)
     {
         JsonObject& arrPoint = dynamic_cast<JsonObject&>(*posts[i]);
-        JsonObject& t = dynamic_cast<JsonObject&>(*arrPoint["data"]);
+        JsonObject& currentPost = dynamic_cast<JsonObject&>(*arrPoint["data"]);
 
         //Construct our post in a struct
         RedditPost tempPost;
-        tempPost.name = t["title"]->getValue();
-        tempPost.author = t["author"]->getValue();
-        tempPost.score = stoi(t["ups"]->getValue());
-        tempPost.subreddit = t["subreddit"]->getValue();
+        tempPost.name = currentPost["title"]->getValue();
+        tempPost.author = currentPost["author"]->getValue();
+        tempPost.score = stoi(currentPost["ups"]->getValue());
+        tempPost.subreddit = currentPost["subreddit"]->getValue();
         
         
         //add the post to the list as the last thing
