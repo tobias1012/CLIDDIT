@@ -60,6 +60,8 @@ public:
 class JsonNumber : public JsonValue
 {
 public:
+    JsonNumber(double val)
+        : val(val) {}
     double val;
     virtual std::string getValue();
 };

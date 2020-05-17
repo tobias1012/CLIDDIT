@@ -37,6 +37,9 @@ Posts RedditHandler::getPosts()
         //Construct our post in a struct
         RedditPost tempPost;
         tempPost.name = t["title"]->getValue();
+        tempPost.author = t["author"]->getValue();
+        tempPost.score = stoi(t["ups"]->getValue());
+        tempPost.subreddit = t["subreddit"]->getValue();
         
         
         //add the post to the list as the last thing

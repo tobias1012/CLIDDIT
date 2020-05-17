@@ -1,6 +1,7 @@
 %{
     #include "json.hpp"
     #include <iostream>
+    #include <string>
     JsonObject* finished;
 
     extern int yylex();
@@ -52,7 +53,7 @@ pair: string TCOLON value {$$ = new JsonPair($<JString>1, $3); }
 
 value: number | string | bool | array | object ;
 
-number: TNUMBER { $$ = new JsonNumber();}
+number: TNUMBER { $$ = new JsonNumber(atof($1->c_str())); delete $1;}
       ;
 
 array: TLBRACKET elements TRBRACKET {$$ = new JsonArray($2);} 
