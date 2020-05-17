@@ -5,9 +5,11 @@
 #include "requester.hpp"
 #include "jsonParser.hpp"
 #include "redditHandler.hpp"
+#include "windowHandler.hpp"
 
 int main()
 {
+    /*
     Requester req;
 
     req.setHost("https://www.reddit.com/");
@@ -23,12 +25,17 @@ int main()
 
     std::cout <<"Length of string:" << t.length() << std::endl << 
     "Time to Parse: " << dT << std::endl;
+    */
 
     RedditHandler handler;
 
     std::string name = handler.getPosts()[0].name;
 
     std::cout << name << std::endl;
+
+    WindowHandler wHandler;
+    wHandler.start();
+    
 
     return 0;
 }
