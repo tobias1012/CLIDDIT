@@ -14,6 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: install deps
-    - run: apt-get install flex bison libcurl-dev
+      run: apt-get install flex bison libcurl-dev
     - name: make
       run: make
